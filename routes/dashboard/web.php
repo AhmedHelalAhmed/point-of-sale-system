@@ -1,13 +1,8 @@
 <?php
 
 
-Route::prefix('dashboard')->name('dashboard.')->group(function (){
+Route::prefix('dashboard')->name('dashboard.')->group(function () {
 
-    // url => (/dashboard/check)
-    Route::get('/check',function(){
-
-        dd('hello world');
-
-    });
+    Route::get('/index', 'DashboardController@index')->name('index');
 
 });// end of dashboard routes
