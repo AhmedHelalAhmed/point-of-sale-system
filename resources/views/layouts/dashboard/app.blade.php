@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html dir="{{ LaravelLocalization::getCurrentLocaleDirection() }}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,13 +24,14 @@
             }
         </style>
     @else
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+        <link rel="stylesheet"
+              href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
         <link rel="stylesheet" href="{{ asset('dashboard_files/css/font-awesome.min.css') }}">
         <link rel="stylesheet" href="{{ asset('dashboard_files/css/AdminLTE.min.css') }}">
     @endif
 
     <style>
-        .mr-2{
+        .mr-2 {
             margin-right: 5px;
         }
 
@@ -121,7 +122,8 @@
                                     <li><!-- start message -->
                                         <a href="#">
                                             <div class="pull-left">
-                                                <img src="{{ asset('dashboard_files/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                                                <img src="{{ asset('dashboard_files/img/user2-160x160.jpg') }}"
+                                                     class="img-circle" alt="User Image">
                                             </div>
                                             <h4>
                                                 Support Team
@@ -171,7 +173,14 @@
                             <li>
                                 {{--<!-- inner menu: contains the actual data -->--}}
                                 <ul class="menu">
-
+                                    @foreach(LaravelLocalization::getSupportedLocales() as $localeCode => $properties)
+                                        <li>
+                                            <a rel="alternate" hreflang="{{ $localeCode }}"
+                                               href="{{ LaravelLocalization::getLocalizedURL($localeCode, null, [], true) }}">
+                                                {{ $properties['native'] }}
+                                            </a>
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </li>
                         </ul>
@@ -181,14 +190,16 @@
                     <li class="dropdown user user-menu">
 
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="{{ asset('dashboard_files/img/user2-160x160.jpg') }}" class="user-image" alt="User Image">
+                            <img src="{{ asset('dashboard_files/img/user2-160x160.jpg') }}" class="user-image"
+                                 alt="User Image">
                             <span class="hidden-xs"></span>
                         </a>
                         <ul class="dropdown-menu">
 
                             {{--<!-- User image -->--}}
                             <li class="user-header">
-                                <img src="{{ asset('dashboard_files/img/user2-160x160.jpg') }}" class="img-circle" alt="User Image">
+                                <img src="{{ asset('dashboard_files/img/user2-160x160.jpg') }}" class="img-circle"
+                                     alt="User Image">
 
                                 <p>
                                     <small>Member since 2 days</small>
@@ -202,7 +213,8 @@
                                 <a href="{{ route('logout') }}" class="btn btn-default btn-flat" onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">@lang('site.logout')</a>
 
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                                      style="display: none;">
                                     @csrf
                                 </form>
 
@@ -216,7 +228,7 @@
     </header>
 
     @include('layouts.dashboard._aside')
-    
+
     @yield('content')
 
     @include('partials._session')
@@ -298,10 +310,10 @@
 
         });//end of delete
 
-        CKEDITOR.config.language =  "{{ app()->getLocale() }}";
+        CKEDITOR.config.language = "{{ app()->getLocale() }}";
 
     });//end of ready
-    
+
 </script>
 @stack('scripts')
 </body>

@@ -9,7 +9,7 @@
 
 
             <h1>
-                @lan(dashboard)
+                @lang('site.dashboard')
                 <small>it all starts here</small>
             </h1>
 
