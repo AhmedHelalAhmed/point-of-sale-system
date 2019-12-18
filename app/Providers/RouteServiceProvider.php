@@ -15,6 +15,8 @@ class RouteServiceProvider extends ServiceProvider
      * @var string
      */
     protected $namespace = 'App\Http\Controllers';
+    protected $dashboard_namespace = 'App\Http\Controllers\Dashboard';
+
 
     /**
      * Define your route model bindings, pattern filters, etc.
@@ -39,6 +41,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapWebRoutes();
 
+        $this->mapDashboardRoutes();
+
         //
     }
 
@@ -55,6 +59,14 @@ class RouteServiceProvider extends ServiceProvider
              ->namespace($this->namespace)
              ->group(base_path('routes/web.php'));
     }
+
+    protected function mapDashboardRoutes()
+    {
+        Route::middleware('web')
+            ->namespace($this->dashboard_namespace)
+            ->group(base_path('routes/dashboard/web.php'));
+    }
+
 
     /**
      * Define the "api" routes for the application.
