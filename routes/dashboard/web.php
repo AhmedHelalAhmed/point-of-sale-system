@@ -7,9 +7,12 @@ Route::group(
         'middleware' => ['localeSessionRedirect', 'localizationRedirect', 'localeViewPath']
     ], function () {
 
-    Route::prefix('dashboard')->name('dashboard.')->group(function () {
+    Route::prefix('dashboard')->name('dashboard.')->middleware(['auth'])->group(function () {
 
         Route::get('/index', 'DashboardController@index')->name('index');
+
+        // users routes
+        Route::resource('users', 'UserController')->except(['show']);
 
     });// end of dashboard routes
 

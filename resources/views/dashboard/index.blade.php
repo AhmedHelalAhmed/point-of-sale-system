@@ -10,7 +10,6 @@
 
             <h1>
                 @lang('site.dashboard')
-                <small>it all starts here</small>
             </h1>
 
 
