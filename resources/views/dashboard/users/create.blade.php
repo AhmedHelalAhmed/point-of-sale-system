@@ -71,6 +71,8 @@
                             <div class="nav-tabs-custom">
                                 @php
                                     $models=['users','categories','products'];
+                                    $actions=['create','read','update','delete'];
+
                                 @endphp
                                 <ul class="nav nav-tabs">
 
@@ -87,26 +89,14 @@
 
                                     @foreach($models as $index=>$model)
                                         <div class="tab-pane {{ $index == 0 ? 'active' : '' }}" id="{{ $model }}">
-
-
                                             <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox" name="permissions[]"
-                                                           value="create_{{ $model }}"> @lang('site.create')
-                                                </label>
-                                                <label>
-                                                    <input type="checkbox" name="permissions[]"
-                                                           value="read_{{ $model }}"> @lang('site.read')
-                                                </label>
-
-                                                <label>
-                                                    <input type="checkbox" name="permissions[]"
-                                                           value="update_{{ $model }}"> @lang('site.update')
-                                                </label>
-                                                <label>
-                                                    <input type="checkbox" name="permissions[]"
-                                                           value="delete_{{ $model }}"> @lang('site.delete')
-                                                </label>
+                                                @foreach($actions as $action)
+                                                    <label>
+                                                        <input type="checkbox"
+                                                               name="permissions[]"
+                                                               value="{{ $action.'_'.$model }}"> @lang('site.'.$action)
+                                                    </label>
+                                                @endforeach
                                             </div>
                                         </div>
 
