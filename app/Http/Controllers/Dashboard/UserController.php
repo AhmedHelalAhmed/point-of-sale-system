@@ -8,6 +8,17 @@ use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        // notice the or in case or multi middleware
+        // $this->middleware(['permission:read_users|permission:create_users'])->only('index');
+        $this->middleware(['permission:read_users'])->only('index');
+        $this->middleware(['permission:create_users'])->only(['create', 'store']);
+        $this->middleware(['permission:update_users'])->only(['update', 'edit']);
+        $this->middleware(['permission:delete_users'])->only(['destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -88,7 +99,7 @@ class UserController extends Controller
             'last_name' => 'required',
             'email' => 'required',
         ]);
-        $request_data = $request->except([ 'permissions']);
+        $request_data = $request->except(['permissions']);
 
         $user->update($request_data);
         $user->syncPermissions($request->permissions);
