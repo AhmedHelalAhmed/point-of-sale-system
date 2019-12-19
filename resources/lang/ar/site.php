@@ -8,7 +8,7 @@ return [
     'add' => 'اضف',
     'create' => 'اضافة',
     'read' => 'عرض',
-    'update' => 'تعجيل',
+    'update' => 'تعديل',
     'delete' => 'حذف',
     'search' => 'بحث',
     'users' => 'المشرفين',

@@ -69,34 +69,50 @@
                             <label>@lang('site.permissions')</label>
 
                             <div class="nav-tabs-custom">
+                                @php
+                                    $models=['users','categories','products'];
+                                @endphp
                                 <ul class="nav nav-tabs">
-                                    <li class="active"><a href="#users" data-toggle="tab">@lang('site.users')</a></li>
+
+                                    @foreach($models as $index=>$model)
+
+                                        <li class="{{ $index == 0 ? 'active' : '' }}">
+                                            <a href="#{{ $model }}" data-toggle="tab">@lang('site.'.$model)</a>
+                                        </li>
+                                    @endforeach
+
 
                                 </ul>
                                 <div class="tab-content">
-                                    <div class="tab-pane active" id="users">
+
+                                    @foreach($models as $index=>$model)
+                                        <div class="tab-pane {{ $index == 0 ? 'active' : '' }}" id="{{ $model }}">
 
 
-                                        <div class="checkbox">
-                                            <label>
-                                                <input type="checkbox" name="permissions[]"
-                                                       value="create_users"> @lang('site.create')
-                                            </label>
-                                            <label>
-                                                <input type="checkbox" name="permissions[]"
-                                                       value="read_users"> @lang('site.read')
-                                            </label>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input type="checkbox" name="permissions[]"
+                                                           value="create_{{ $model }}"> @lang('site.create')
+                                                </label>
+                                                <label>
+                                                    <input type="checkbox" name="permissions[]"
+                                                           value="read_{{ $model }}"> @lang('site.read')
+                                                </label>
 
-                                            <label>
-                                                <input type="checkbox" name="permissions[]"
-                                                       value="update_users"> @lang('site.update')
-                                            </label>
-                                            <label>
-                                                <input type="checkbox" name="permissions[]"
-                                                       value="delete_users"> @lang('site.delete')
-                                            </label>
+                                                <label>
+                                                    <input type="checkbox" name="permissions[]"
+                                                           value="update_{{ $model }}"> @lang('site.update')
+                                                </label>
+                                                <label>
+                                                    <input type="checkbox" name="permissions[]"
+                                                           value="delete_{{ $model }}"> @lang('site.delete')
+                                                </label>
+                                            </div>
                                         </div>
-                                    </div>
+
+
+                                    @endforeach
+
 
                                 </div>
                             </div>
