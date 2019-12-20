@@ -24,9 +24,15 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
+        if ($request->search) {
+            $users = User::where('first_name', 'like', '%' . $request->search . '%')
+                ->orWhere('last_name', 'like', '%' . $request->search . '%')
+                ->get();
+        } else {
+            $users = User::whereRoleIs('admin')->get();
+        }
 
         return view('dashboard.users.index', compact('users'));
     }// end of index
